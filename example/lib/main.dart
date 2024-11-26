@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
-      length: 2,
+      length: 3,
       child: Scaffold(
         backgroundColor: Theme.of(context).colorScheme.primary,
         appBar: AppBar(
@@ -53,8 +53,8 @@ class _HomeState extends State<Home> {
             style: TextStyle(color: Colors.white),
           ),
           bottom: const TabBar(
-            labelColor: Colors.white,
-            unselectedLabelColor: Colors.white70,
+            labelColor: Colors.grey,
+            unselectedLabelColor: Colors.blueGrey,
             labelStyle: TextStyle(fontSize: 18),
             unselectedLabelStyle: TextStyle(fontSize: 18),
             padding: EdgeInsets.all(2),
@@ -68,6 +68,10 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: EdgeInsets.only(bottom: 8.0),
                 child: Text('Multi selection'),
+              ),
+              Padding(
+                padding: EdgeInsets.only(bottom: 8.0),
+                child: Text('Multi selection Fork Reason'),
               ),
             ],
           ),
@@ -104,6 +108,13 @@ class _HomeState extends State<Home> {
                 MultiSelectValidationDropdown(),
                 const SizedBox(height: 16),
                 const MultiSelectControllerDropdown()
+              ],
+            ),
+            ListView(
+              padding: const EdgeInsets.all(16.0),
+              children: [
+                const MultiSelectFilterDropdown(),
+                const SizedBox(height: 16),
               ],
             ),
           ],

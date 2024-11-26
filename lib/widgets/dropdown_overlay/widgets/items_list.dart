@@ -44,6 +44,8 @@ class _ItemsList<T> extends StatelessWidget {
           return Material(
             color: Colors.transparent,
             child: InkWell(
+              hoverColor: decoration?.hoverColor ??
+                  ListItemDecoration._defaultHoverColor,
               splashColor: decoration?.splashColor ??
                   ListItemDecoration._defaultSplashColor,
               highlightColor: decoration?.highlightColor ??

@@ -99,7 +99,7 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: widget.decoration?.searchFieldOuterPadding ??  const EdgeInsets.symmetric(horizontal: 8),
       child: TextField(
         focusNode: focusNode,
         style: widget.decoration?.textStyle,
@@ -172,6 +172,7 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
                   width: 1,
                 ),
               ),
+          hoverColor: widget.decoration?.hoverColor ?? SearchFieldDecoration._defaultHoverColor
         ),
       ),
     );

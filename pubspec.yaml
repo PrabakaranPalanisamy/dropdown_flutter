@@ -1,8 +1,8 @@
-name: dropdown_flutter
+name: dropdown_flutter_fork
 description: A Flutter package designed to enhance your app with customizable dropdowns, featuring list data search, network search, and multi-selection.
 
 version: 1.0.1
-homepage: https://github.com/farhansadikgalib/dropdown_flutter
+homepage: https://github.com/PrabakaranPalanisamy/dropdown_flutter
 
 environment:
   sdk: '>=3.4.3 <4.0.0'

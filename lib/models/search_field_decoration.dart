@@ -31,6 +31,14 @@ class SearchFieldDecoration {
   /// Focused border for [DropdownFlutter] search field.
   final InputBorder? focusedBorder;
 
+  /// Padding for [DropdownFlutter] search field.
+  final EdgeInsetsGeometry? searchFieldOuterPadding;
+
+  /// Hover color for [DropdownFlutter] search field.
+  ///
+  /// Default to Colors.transparent.
+  final Color? hoverColor;
+
   const SearchFieldDecoration({
     this.fillColor,
     this.constraints,
@@ -41,7 +49,10 @@ class SearchFieldDecoration {
     this.suffixIcon,
     this.border,
     this.focusedBorder,
+    this.searchFieldOuterPadding,
+    this.hoverColor,
   });
 
   static const _defaultFillColor = Color(0xFFFAFAFA);
+  static const _defaultHoverColor = Colors.transparent;
 }
