@@ -23,6 +23,7 @@ class SimpleDropdown extends StatelessWidget {
       onChanged: (value) {
         log('SimpleDropdown onChanged value: $value');
       },
+      shouldResetSelection: true,
     );
   }
 }

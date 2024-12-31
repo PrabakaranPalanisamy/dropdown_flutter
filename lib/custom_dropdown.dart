@@ -8,20 +8,32 @@ import 'package:flutter/scheduler.dart';
 export 'custom_dropdown.dart';
 
 part 'models/controllers.dart';
+
 // models
 part 'models/custom_dropdown_decoration.dart';
+
 part 'models/custom_dropdown_list_filter.dart';
+
 part 'models/disabled_decoration.dart';
+
 part 'models/list_item_decoration.dart';
+
 part 'models/search_field_decoration.dart';
+
 // utils
 part 'utils/signatures.dart';
+
 // widgets
 part 'widgets/animated_section.dart';
+
 part 'widgets/dropdown_field.dart';
+
 part 'widgets/dropdown_overlay/dropdown_overlay.dart';
+
 part 'widgets/dropdown_overlay/widgets/items_list.dart';
+
 part 'widgets/dropdown_overlay/widgets/search_field.dart';
+
 part 'widgets/overlay_builder.dart';
 
 enum _DropdownType { singleSelect, multipleSelect }
@@ -179,6 +191,8 @@ class DropdownFlutter<T> extends StatefulWidget {
   final _SearchType? _searchType;
 
   final _DropdownType _dropdownType;
+  /// Will reset the selected item to null if this is set to true. Only works in single select dropdown
+  final bool shouldResetSelection;
 
   DropdownFlutter({
     super.key,
@@ -207,6 +221,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.excludeSelected = true,
     this.enabled = true,
     this.disabledDecoration,
+    this.shouldResetSelection = false,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -267,6 +282,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.enabled = true,
     this.disabledDecoration,
     this.closeDropDownOnClearFilterSearch = false,
+    this.shouldResetSelection = false,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -326,6 +342,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.enabled = true,
     this.disabledDecoration,
     this.closeDropDownOnClearFilterSearch = false,
+    this.shouldResetSelection = false,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -365,6 +382,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.listItemPadding,
     this.enabled = true,
     this.disabledDecoration,
+    this.shouldResetSelection = false,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -427,6 +445,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.enabled = true,
     this.disabledDecoration,
     this.closeDropDownOnClearFilterSearch = false,
+    this.shouldResetSelection = false,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -488,6 +507,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.enabled = true,
     this.disabledDecoration,
     this.closeDropDownOnClearFilterSearch = false,
+    this.shouldResetSelection = false,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -618,6 +638,9 @@ class _DropdownFlutterState<T> extends State<DropdownFlutter<T>> {
                     switch (widget._dropdownType) {
                       case _DropdownType.singleSelect:
                         selectedItemNotifier.value = value;
+                        if(widget.shouldResetSelection){
+                          selectedItemNotifier.clear();
+                        }
                       case _DropdownType.multipleSelect:
                         final currentVal = selectedItemsNotifier.value.toList();
                         if (currentVal.contains(value)) {
