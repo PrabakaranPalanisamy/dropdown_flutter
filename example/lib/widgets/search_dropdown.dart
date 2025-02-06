@@ -40,6 +40,39 @@ class _SearchDropdownState extends State<SearchDropdown> {
           selectedItem = value;
         });
       },
+      decoration: CustomDropdownDecoration(
+        searchFieldDecoration: SearchFieldDecoration(
+          border: InputBorder.none,
+          outLineInnerBorderDecoration: BoxDecoration(
+            border: const Border(
+              left: BorderSide(
+                color: Colors.red,
+                width: 3,
+              ),
+            ), borderRadius: BorderRadius.circular(2),
+          ),
+          outLineOuterBorderDecoration: BoxDecoration(
+            border: Border.all(
+              color: Colors.green,
+              width: 2
+            ),
+            borderRadius: BorderRadius.circular(4),
+          ),
+        ),
+        closedBorder: Border(
+          left: BorderSide(
+            color: Colors.red,
+            width: 3,
+          ),
+        ),
+        closedBorderRadius: BorderRadius.circular(4),
+        outLineBorderDecoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.green,
+          ),
+          borderRadius: BorderRadius.circular(4),
+        ),
+      ),
     );
   }
 }

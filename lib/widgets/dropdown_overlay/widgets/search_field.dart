@@ -100,79 +100,85 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
   Widget build(BuildContext context) {
     return Padding(
       padding: widget.decoration?.searchFieldOuterPadding ??  const EdgeInsets.symmetric(horizontal: 8),
-      child: TextField(
-        focusNode: focusNode,
-        style: widget.decoration?.textStyle,
-        onChanged: (val) async {
-          if (val.isEmpty) {
-            isFieldEmpty = true;
-          } else if (isFieldEmpty) {
-            isFieldEmpty = false;
-          }
+      child: Container(
+        decoration:widget.decoration?.outLineOuterBorderDecoration ?? const BoxDecoration(color: Colors.transparent),
+        child: Container(
+          decoration:widget.decoration?.outLineInnerBorderDecoration ?? const BoxDecoration(color: Colors.transparent),
+          child: TextField(
+            focusNode: focusNode,
+            style: widget.decoration?.textStyle,
+            onChanged: (val) async {
+              if (val.isEmpty) {
+                isFieldEmpty = true;
+              } else if (isFieldEmpty) {
+                isFieldEmpty = false;
+              }
 
-          if (widget.searchType != null &&
-              widget.searchType == _SearchType.onRequestData &&
-              val.isNotEmpty) {
-            widget.onFutureRequestLoading!(true);
+              if (widget.searchType != null &&
+                  widget.searchType == _SearchType.onRequestData &&
+                  val.isNotEmpty) {
+                widget.onFutureRequestLoading!(true);
 
-            if (widget.futureRequestDelay != null) {
-              _delayTimer?.cancel();
-              _delayTimer =
-                  Timer(widget.futureRequestDelay ?? Duration.zero, () {
-                searchRequest(val);
-              });
-            } else {
-              searchRequest(val);
-            }
-          } else if (widget.searchType == _SearchType.onListData) {
-            onSearch(val);
-          } else {
-            widget.onSearchedItems(widget.items);
-          }
-        },
-        controller: searchCtrl,
-        decoration: InputDecoration(
-          filled: true,
-          fillColor: widget.decoration?.fillColor ??
-              SearchFieldDecoration._defaultFillColor,
-          constraints: widget.decoration?.constraints ??
-              const BoxConstraints.tightFor(height: 40),
-          contentPadding:
-              widget.decoration?.contentPadding ?? const EdgeInsets.all(8),
-          hintText: widget.searchHintText,
-          hintStyle: widget.decoration?.hintStyle,
-          prefixIcon: widget.decoration?.prefixIcon ??
-              const Icon(Icons.search, size: 22),
-          suffixIcon: widget.decoration?.suffixIcon?.call(onClear) ??
-              GestureDetector(
-                onTap: onClear,
-                child: const Icon(Icons.close, size: 20),
-              ),
-          border: widget.decoration?.border ??
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(
-                  color: Colors.grey.withOpacity(.25),
-                  width: 1,
-                ),
-              ),
-          enabledBorder: widget.decoration?.border ??
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(
-                  color: Colors.grey.withOpacity(.25),
-                  width: 1,
-                ),
-              ),
-          focusedBorder: widget.decoration?.focusedBorder ??
-              OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8),
-                borderSide: BorderSide(
-                  color: Colors.grey.withOpacity(.25),
-                  width: 1,
-                ),
-              ),
-          hoverColor: widget.decoration?.hoverColor ?? SearchFieldDecoration._defaultHoverColor
+                if (widget.futureRequestDelay != null) {
+                  _delayTimer?.cancel();
+                  _delayTimer =
+                      Timer(widget.futureRequestDelay ?? Duration.zero, () {
+                    searchRequest(val);
+                  });
+                } else {
+                  searchRequest(val);
+                }
+              } else if (widget.searchType == _SearchType.onListData) {
+                onSearch(val);
+              } else {
+                widget.onSearchedItems(widget.items);
+              }
+            },
+            controller: searchCtrl,
+            decoration: InputDecoration(
+              filled: true,
+              fillColor: widget.decoration?.fillColor ??
+                  SearchFieldDecoration._defaultFillColor,
+              constraints: widget.decoration?.constraints ??
+                  const BoxConstraints.tightFor(height: 40),
+              contentPadding:
+                  widget.decoration?.contentPadding ?? const EdgeInsets.all(8),
+              hintText: widget.searchHintText,
+              hintStyle: widget.decoration?.hintStyle,
+              prefixIcon: widget.decoration?.prefixIcon ??
+                  const Icon(Icons.search, size: 22),
+              suffixIcon: widget.decoration?.suffixIcon?.call(onClear) ??
+                  GestureDetector(
+                    onTap: onClear,
+                    child: const Icon(Icons.close, size: 20),
+                  ),
+              border: widget.decoration?.border ??
+                  OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: Colors.grey.withOpacity(.25),
+                      width: 1,
+                    ),
+                  ),
+              enabledBorder: widget.decoration?.border ??
+                  OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: Colors.grey.withOpacity(.25),
+                      width: 1,
+                    ),
+                  ),
+              focusedBorder: widget.decoration?.focusedBorder ??
+                  OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(8),
+                    borderSide: BorderSide(
+                      color: Colors.grey.withOpacity(.25),
+                      width: 1,
+                    ),
+                  ),
+              hoverColor: widget.decoration?.hoverColor ?? SearchFieldDecoration._defaultHoverColor
+            ),
+          ),
         ),
       ),
     );

@@ -39,6 +39,9 @@ class SearchFieldDecoration {
   /// Default to Colors.transparent.
   final Color? hoverColor;
 
+  final Decoration? outLineOuterBorderDecoration;
+  final Decoration? outLineInnerBorderDecoration;
+
   const SearchFieldDecoration({
     this.fillColor,
     this.constraints,
@@ -51,6 +54,8 @@ class SearchFieldDecoration {
     this.focusedBorder,
     this.searchFieldOuterPadding,
     this.hoverColor,
+    this.outLineOuterBorderDecoration,
+    this.outLineInnerBorderDecoration,
   });
 
   static const _defaultFillColor = Color(0xFFFAFAFA);
