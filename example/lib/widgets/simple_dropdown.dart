@@ -24,6 +24,21 @@ class SimpleDropdown extends StatelessWidget {
         log('SimpleDropdown onChanged value: $value');
       },
       shouldResetSelection: true,
+      decoration: CustomDropdownDecoration(
+        closedBorder: Border(
+          left: BorderSide(
+            color: Colors.red,
+            width: 3,
+          ),
+        ),
+        closedBorderRadius: BorderRadius.circular(4),
+        outLineBorderDecoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.green,
+          ),
+          borderRadius: BorderRadius.circular(4),
+        ),
+      ),
     );
   }
 }

@@ -732,6 +732,7 @@ class _DropdownFlutterState<T> extends State<DropdownFlutter<T>> {
                     dropdownType: widget._dropdownType,
                     selectedItemsNotifier: selectedItemsNotifier,
                     enabled: widget.enabled,
+                    outLineBorderDecoration: decoration?.outLineBorderDecoration,
                   ),
                 );
               },

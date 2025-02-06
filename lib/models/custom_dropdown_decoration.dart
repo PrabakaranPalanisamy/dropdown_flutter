@@ -68,6 +68,8 @@ class CustomDropdownDecoration {
   /// [DropdownFlutter] list item decoration.
   final ListItemDecoration? listItemDecoration;
 
+  final Decoration? outLineBorderDecoration;
+
   const CustomDropdownDecoration({
     this.closedFillColor,
     this.expandedFillColor,
@@ -90,6 +92,7 @@ class CustomDropdownDecoration {
     this.overlayScrollbarDecoration,
     this.searchFieldDecoration,
     this.listItemDecoration,
+    this.outLineBorderDecoration,
   });
 
   static const Color _defaultFillColor = Colors.white;

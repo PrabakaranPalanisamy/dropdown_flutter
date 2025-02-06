@@ -24,6 +24,7 @@ class _DropDownField<T> extends StatefulWidget {
   final _DropdownType dropdownType;
   final bool enabled;
   final MultiSelectController<T> selectedItemsNotifier;
+  final Decoration? outLineBorderDecoration;
 
   const _DropDownField({
     super.key,
@@ -46,6 +47,7 @@ class _DropDownField<T> extends StatefulWidget {
     this.suffixIcon,
     this.headerPadding,
     this.enabled = true,
+    this.outLineBorderDecoration,
   });
 
   @override
@@ -124,42 +126,45 @@ class _DropDownFieldState<T> extends State<_DropDownField<T>> {
     return GestureDetector(
       onTap: widget.onTap,
       child: Container(
-        padding: widget.headerPadding ?? _defaultHeaderPadding,
-        decoration: BoxDecoration(
-          color: widget.fillColor ??
-              (widget.enabled
-                  ? CustomDropdownDecoration._defaultFillColor
-                  : CustomDropdownDecoration._defaultFillColor.withOpacity(.5)),
-          border: widget.border,
-          borderRadius: widget.borderRadius ?? _defaultBorderRadius,
-          boxShadow: widget.shadow,
-        ),
-        child: Row(
-          children: [
-            if (widget.prefixIcon != null) ...[
-              widget.prefixIcon!,
-              const SizedBox(width: 12),
-            ],
-            Expanded(
-              child: switch (widget.dropdownType) {
-                _DropdownType.singleSelect => selectedItem != null
-                    ? headerBuilder(context)
-                    : hintBuilder(context),
-                _DropdownType.multipleSelect => selectedItems.isNotEmpty
-                    ? headerListBuilder(context)
-                    : hintBuilder(context),
-              },
-            ),
-            const SizedBox(width: 12),
-            widget.suffixIcon ??
+        decoration:widget.outLineBorderDecoration ?? const BoxDecoration(color: Colors.transparent),
+        child: Container(
+          padding: widget.headerPadding ?? _defaultHeaderPadding,
+          decoration: BoxDecoration(
+            color: widget.fillColor ??
                 (widget.enabled
-                    ? _defaultOverlayIconDown
-                    : Icon(
-                        Icons.keyboard_arrow_down_rounded,
-                        color: Colors.black.withOpacity(.5),
-                        size: 20,
-                      )),
-          ],
+                    ? CustomDropdownDecoration._defaultFillColor
+                    : CustomDropdownDecoration._defaultFillColor.withOpacity(.5)),
+            border: widget.border,
+            borderRadius: widget.borderRadius ?? _defaultBorderRadius,
+            boxShadow: widget.shadow,
+          ),
+          child: Row(
+            children: [
+              if (widget.prefixIcon != null) ...[
+                widget.prefixIcon!,
+                const SizedBox(width: 12),
+              ],
+              Expanded(
+                child: switch (widget.dropdownType) {
+                  _DropdownType.singleSelect => selectedItem != null
+                      ? headerBuilder(context)
+                      : hintBuilder(context),
+                  _DropdownType.multipleSelect => selectedItems.isNotEmpty
+                      ? headerListBuilder(context)
+                      : hintBuilder(context),
+                },
+              ),
+              const SizedBox(width: 12),
+              widget.suffixIcon ??
+                  (widget.enabled
+                      ? _defaultOverlayIconDown
+                      : Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: Colors.black.withOpacity(.5),
+                          size: 20,
+                        )),
+            ],
+          ),
         ),
       ),
     );
