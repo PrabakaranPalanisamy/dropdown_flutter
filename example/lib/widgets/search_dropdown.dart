@@ -42,7 +42,7 @@ class _SearchDropdownState extends State<SearchDropdown> {
       },
       hideSelectedFieldWhenExpanded: true,
       decoration: CustomDropdownDecoration(
-        // additionalOverlayOffset: Offset(0, 45),
+        additionalOverlayOffset: Offset(0, 60),
         searchFieldDecoration: SearchFieldDecoration(
           border: InputBorder.none,
           outLineInnerBorderDecoration: BoxDecoration(

@@ -263,7 +263,13 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
 
     final additionalOffset = widget.additionalOverlayOffset ?? Offset.zero;
     final additionalXOffset = additionalOffset.dx;
-    final additionalYOffset = additionalOffset.dy;
+
+    double additionalYOffset;
+    if(displayOverlayBottom){
+      additionalYOffset  = additionalOffset.dy;
+    }else{
+      additionalYOffset  = -additionalOffset.dy;
+    }
     // overlay offset
     final overlayOffset = Offset(-12+ additionalXOffset , displayOverlayBottom ? 0+additionalYOffset : 64+additionalYOffset);
 
