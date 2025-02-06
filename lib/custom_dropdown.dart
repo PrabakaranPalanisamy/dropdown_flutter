@@ -687,6 +687,7 @@ class _DropdownFlutterState<T> extends State<DropdownFlutter<T>> {
                   searchRequestLoadingIndicator:
                       widget.searchRequestLoadingIndicator,
                   dropdownType: widget._dropdownType,
+                  additionalOverlayOffset: widget.decoration?.additionalOverlayOffset,
                 );
               },
               child: (showCallback) {

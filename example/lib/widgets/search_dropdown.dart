@@ -40,7 +40,9 @@ class _SearchDropdownState extends State<SearchDropdown> {
           selectedItem = value;
         });
       },
+      hideSelectedFieldWhenExpanded: true,
       decoration: CustomDropdownDecoration(
+        // additionalOverlayOffset: Offset(0, 45),
         searchFieldDecoration: SearchFieldDecoration(
           border: InputBorder.none,
           outLineInnerBorderDecoration: BoxDecoration(

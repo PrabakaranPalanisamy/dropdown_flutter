@@ -66,6 +66,7 @@ class DecoratedDropdown extends StatelessWidget {
             blurRadius: 8,
           ),
         ],
+        additionalOverlayOffset: Offset(0, 70),
         searchFieldDecoration: SearchFieldDecoration(
           fillColor: Colors.grey[700],
           prefixIcon: Icon(Icons.search, color: Colors.grey[400]),

@@ -70,6 +70,8 @@ class CustomDropdownDecoration {
 
   final Decoration? outLineBorderDecoration;
 
+  final Offset? additionalOverlayOffset;
+
   const CustomDropdownDecoration({
     this.closedFillColor,
     this.expandedFillColor,
@@ -93,6 +95,7 @@ class CustomDropdownDecoration {
     this.searchFieldDecoration,
     this.listItemDecoration,
     this.outLineBorderDecoration,
+    this.additionalOverlayOffset,
   });
 
   static const Color _defaultFillColor = Colors.white;

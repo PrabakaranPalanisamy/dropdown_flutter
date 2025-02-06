@@ -38,6 +38,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final _NoResultFoundBuilder? noResultFoundBuilder;
   final CustomDropdownDecoration? decoration;
   final _DropdownType dropdownType;
+  final Offset? additionalOverlayOffset;
 
   const _DropdownOverlay({
     Key? key,
@@ -75,6 +76,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.listItemBuilder,
     required this.headerListBuilder,
     required this.noResultFoundBuilder,
+    this.additionalOverlayOffset,
   });
 
   @override
@@ -259,8 +261,11 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
     // search availability check
     final onSearch = widget.searchType != null;
 
+    final additionalOffset = widget.additionalOverlayOffset ?? Offset.zero;
+    final additionalXOffset = additionalOffset.dx;
+    final additionalYOffset = additionalOffset.dy;
     // overlay offset
-    final overlayOffset = Offset(-12, displayOverlayBottom ? 0 : 64);
+    final overlayOffset = Offset(-12+ additionalXOffset , displayOverlayBottom ? 0+additionalYOffset : 64+additionalYOffset);
 
     // list padding
     final listPadding =
