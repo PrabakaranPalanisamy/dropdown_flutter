@@ -18,6 +18,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final SingleSelectController<T?> selectedItemNotifier;
   final MultiSelectController<T> selectedItemsNotifier;
   final Function(T) onItemSelect;
+  final Function(List<T>)? onApplyButtonPressed;
   final Size size;
   final LayerLink layerLink;
   final VoidCallback hideOverlay;
@@ -28,13 +29,19 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final Duration? futureRequestDelay;
   final int maxLines;
   final double? overlayHeight;
-  final TextStyle? hintStyle, headerStyle, noResultFoundStyle, listItemStyle;
+  final TextStyle? hintStyle,
+      headerStyle,
+      noResultFoundStyle,
+      listItemStyle,
+      selectAllItemStyle;
   final EdgeInsets? headerPadding, listItemPadding, itemsListPadding;
   final Widget? searchRequestLoadingIndicator;
   final _ListItemBuilder<T>? listItemBuilder;
+  final _SelectAllListItemBuilder<T>? selectAllItemBuilder;
   final _HeaderBuilder<T>? headerBuilder;
   final _HeaderListBuilder<T>? headerListBuilder;
   final _HintBuilder? hintBuilder;
+  final _ApplyButtonBuilder? applyButtonBuilder;
   final _NoResultFoundBuilder? noResultFoundBuilder;
   final CustomDropdownDecoration? decoration;
   final _DropdownType dropdownType;
@@ -62,6 +69,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.hintStyle,
     required this.headerStyle,
     required this.listItemStyle,
+    required this.selectAllItemStyle,
     required this.noResultFoundStyle,
     required this.hideSelectedFieldWhenOpen,
     required this.searchRequestLoadingIndicator,
@@ -70,10 +78,13 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.listItemPadding,
     required this.headerBuilder,
     required this.hintBuilder,
+    required this.applyButtonBuilder,
+    this.onApplyButtonPressed,
     required this.searchType,
     required this.futureRequest,
     required this.futureRequestDelay,
     required this.listItemBuilder,
+    required this.selectAllItemBuilder,
     required this.headerListBuilder,
     required this.noResultFoundBuilder,
     this.additionalOverlayOffset,
@@ -151,6 +162,37 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
             ),
           ),
       ],
+    );
+  }
+
+  Widget defaultSelectAllListItemBuilder(
+      BuildContext context, bool? isSelectedAll, Function(bool?) onSelectAll) {
+    return CheckboxListTile(
+      tristate: true,
+      value: isSelectedAll,
+      onChanged: onSelectAll,
+      activeColor: widget.decoration?.listItemDecoration?.selectedIconColor,
+      side: widget.decoration?.listItemDecoration?.selectedIconBorder,
+      shape: widget.decoration?.listItemDecoration?.selectedIconShape,
+      materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+      visualDensity: const VisualDensity(
+        horizontal: VisualDensity.minimumDensity,
+        vertical: VisualDensity.minimumDensity,
+      ),
+      title: Text(
+        "Select All",
+        style: widget.selectAllItemStyle ?? const TextStyle(fontSize: 16),
+      ),
+    );
+  }
+
+  Widget defaultApplyButtonBuilder(
+    BuildContext context,
+    VoidCallback onApplyButtonPressed,
+  ) {
+    return ElevatedButton(
+      onPressed: onApplyButtonPressed,
+      child: Text("Apply"),
     );
   }
 
@@ -253,6 +295,32 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
     }
   }
 
+  void onSelectAll(bool? value) {
+    if (value == true) {
+      widget.selectedItemsNotifier.value = items;
+    } else if (value == false) {
+      widget.selectedItemsNotifier.value = <T>[];
+    } else {
+      widget.selectedItemsNotifier.value = <T>[];
+    }
+  }
+
+  bool? isSelectedAll() {
+    return switch (widget.dropdownType) {
+      _DropdownType.singleSelect => false,
+      _DropdownType.multipleSelect => selectedItems.isEmpty
+          ? false
+          : selectedItems.length == items.length
+              ? true
+              : null,
+    };
+  }
+
+  void onApplyButtonClick() {
+    widget.onApplyButtonPressed?.call(widget.selectedItemsNotifier.value);
+    widget.hideOverlay();
+  }
+
   @override
   Widget build(BuildContext context) {
     // decoration
@@ -265,17 +333,23 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
     final additionalXOffset = additionalOffset.dx;
 
     double additionalYOffset;
-    if(displayOverlayBottom){
-      additionalYOffset  = additionalOffset.dy;
-    }else{
-      additionalYOffset  = -additionalOffset.dy;
+    if (displayOverlayBottom) {
+      additionalYOffset = additionalOffset.dy;
+    } else {
+      additionalYOffset = -additionalOffset.dy;
     }
     // overlay offset
-    final overlayOffset = Offset(-12+ additionalXOffset , displayOverlayBottom ? 0+additionalYOffset : 64+additionalYOffset);
+    final overlayOffset = Offset(-12 + additionalXOffset,
+        displayOverlayBottom ? 0 + additionalYOffset : 64 + additionalYOffset);
 
     // list padding
     final listPadding =
         onSearch ? const EdgeInsets.only(top: 8) : EdgeInsets.zero;
+
+    final shouldShowApplyButton = (decoration != null &&
+        decoration.showApplyButtonInMultipleSelect != null &&
+        decoration.showApplyButtonInMultipleSelect! &&
+        widget.dropdownType == _DropdownType.multipleSelect && widget.items.isNotEmpty);
 
     // items list
     final list = items.isNotEmpty
@@ -291,6 +365,13 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
             onItemSelect: onItemSelect,
             decoration: decoration?.listItemDecoration,
             dropdownType: widget.dropdownType,
+            selectedItemsNotifier: widget.selectedItemsNotifier,
+            shouldShowSelectAll:
+                decoration?.showSelectAllInMultipleSelect ?? false,
+            onSelectAll: onSelectAll,
+            selectAllListItemBuilder:
+                widget.selectAllItemBuilder ?? defaultSelectAllListItemBuilder,
+            isSelectedAll: isSelectedAll(),
           )
         : (mayFoundSearchRequestResult != null &&
                     !mayFoundSearchRequestResult!) ||
@@ -362,7 +443,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                     ),
                           ),
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
                             mainAxisSize: MainAxisSize.min,
                             children: [
                               if (!widget.hideSelectedFieldWhenOpen)
@@ -539,7 +620,14 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                       ),
                                     )
                               else
-                                items.length > 4 ? Expanded(child: list) : list
+                                items.length > 4 ? Expanded(child: list) : list,
+                              shouldShowApplyButton
+                                  ? widget.applyButtonBuilder != null
+                                      ? widget.applyButtonBuilder!(
+                                          context, onApplyButtonClick)
+                                      : defaultApplyButtonBuilder(
+                                          context, onApplyButtonClick)
+                                  : const SizedBox.shrink(),
                             ],
                           ),
                         ),

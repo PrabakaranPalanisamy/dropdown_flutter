@@ -59,6 +59,9 @@ class CustomDropdownDecoration {
   /// The style to use for the [DropdownFlutter] list item text.
   final TextStyle? listItemStyle;
 
+  /// The style to use for the [DropdownFlutter] select all list item text ion multiple select.
+  final TextStyle? selectAllItemStyle;
+
   /// [DropdownFlutter] scrollbar decoration (opened/expanded state).
   final ScrollbarThemeData? overlayScrollbarDecoration;
 
@@ -71,6 +74,10 @@ class CustomDropdownDecoration {
   final Decoration? outLineBorderDecoration;
 
   final Offset? additionalOverlayOffset;
+
+  final bool? showSelectAllInMultipleSelect;
+
+  final bool? showApplyButtonInMultipleSelect;
 
   const CustomDropdownDecoration({
     this.closedFillColor,
@@ -96,6 +103,9 @@ class CustomDropdownDecoration {
     this.listItemDecoration,
     this.outLineBorderDecoration,
     this.additionalOverlayOffset,
+    this.showSelectAllInMultipleSelect,
+    this.showApplyButtonInMultipleSelect,
+    this.selectAllItemStyle,
   });
 
   static const Color _defaultFillColor = Colors.white;

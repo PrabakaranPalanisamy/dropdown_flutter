@@ -25,3 +25,14 @@ typedef _NoResultFoundBuilder = Widget Function(
   BuildContext context,
   String text,
 );
+
+typedef _SelectAllListItemBuilder<T> = Widget Function(
+  BuildContext context,
+  bool? isSelectedAll,
+  Function(bool?) onSelectAll,
+);
+
+typedef _ApplyButtonBuilder = Widget Function(
+  BuildContext context,
+  VoidCallback onButtonPressed,
+);

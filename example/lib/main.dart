@@ -115,6 +115,7 @@ class _HomeState extends State<Home> {
               children: [
                 const MultiSelectFilterDropdown(),
                 const SizedBox(height: 16),
+                 MultiSelectFilterCustomDropdown(),
               ],
             ),
           ],
