@@ -5,12 +5,14 @@ class _OverlayBuilder extends StatefulWidget {
   final Widget Function(VoidCallback show) child;
   final OverlayPortalController? overlayPortalController;
   final Function(bool)? visibility;
+  final double? overlayWidth;
 
   const _OverlayBuilder({
     required this.overlay,
     required this.child,
     this.overlayPortalController,
     this.visibility,
+    this.overlayWidth,
   });
 
   @override
@@ -50,6 +52,10 @@ class _OverlayBuilderState extends State<_OverlayBuilder> {
       overlayChildBuilder: (_) {
         final renderBox = context.findRenderObject() as RenderBox;
         final size = renderBox.size;
+        if(widget.overlayWidth!=null){
+          final newSize = Size(widget.overlayWidth!, size.height);
+          return widget.overlay(newSize, hideOverlay);
+        }
         return widget.overlay(size, hideOverlay);
       },
       child: widget.child(showOverlay),

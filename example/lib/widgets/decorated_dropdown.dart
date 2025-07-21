@@ -379,6 +379,7 @@ class _MultiSelectFilterCustomDropdownState
           maxlines: 2,
           itemsListPadding: EdgeInsets.zero,
           overlayHeight: 300,
+          overlayWidth: 150,
           hideSelectedFieldWhenExpanded: true,
           multiSelectController: multiSelectController,
           listItemBuilder: (context, item, isSelected, onItemSelect) {

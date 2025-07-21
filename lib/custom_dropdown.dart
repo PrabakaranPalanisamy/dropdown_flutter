@@ -145,6 +145,9 @@ class DropdownFlutter<T> extends StatefulWidget {
   /// Only applicable if items are greater than 4 otherwise adjust automatically.
   final double? overlayHeight;
 
+  /// [DropdownFlutter] opened/expanded area width.
+  final double? overlayWidth;
+
   /// The [listItemBuilder] that will be used to build item on demand.
   final _ListItemBuilder<T>? listItemBuilder;
 
@@ -226,6 +229,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.hintBuilder,
     this.maxlines = 1,
     this.overlayHeight,
+    this.overlayWidth,
     this.closedHeaderPadding,
     this.expandedHeaderPadding,
     this.itemsListPadding,
@@ -286,6 +290,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.validateOnChange = true,
     this.maxlines = 1,
     this.overlayHeight,
+    this.overlayWidth,
     this.closedHeaderPadding,
     this.expandedHeaderPadding,
     this.itemsListPadding,
@@ -348,6 +353,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.validateOnChange = true,
     this.maxlines = 1,
     this.overlayHeight,
+    this.overlayWidth,
     this.closedHeaderPadding,
     this.expandedHeaderPadding,
     this.itemsListPadding,
@@ -397,6 +403,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.hideSelectedFieldWhenExpanded = false,
     this.maxlines = 1,
     this.overlayHeight,
+    this.overlayWidth,
     this.closedHeaderPadding,
     this.expandedHeaderPadding,
     this.itemsListPadding,
@@ -462,6 +469,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.hideSelectedFieldWhenExpanded = false,
     this.maxlines = 1,
     this.overlayHeight,
+    this.overlayWidth,
     this.closedHeaderPadding,
     this.expandedHeaderPadding,
     this.itemsListPadding,
@@ -526,6 +534,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.validateOnChange = true,
     this.maxlines = 1,
     this.overlayHeight,
+    this.overlayWidth,
     this.searchRequestLoadingIndicator,
     this.closedHeaderPadding,
     this.expandedHeaderPadding,
@@ -661,6 +670,7 @@ class _DropdownFlutterState<T> extends State<DropdownFlutter<T>> {
             child: _OverlayBuilder(
               overlayPortalController: widget.overlayController,
               visibility: widget.visibility,
+              overlayWidth: widget.overlayWidth,
               overlay: (size, hideCallback) {
                 return _DropdownOverlay<T>(
                   onItemSelect: (T value) {
