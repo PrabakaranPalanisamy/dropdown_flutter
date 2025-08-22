@@ -208,6 +208,8 @@ class DropdownFlutter<T> extends StatefulWidget {
   /// Will reset the selected item to null if this is set to true. Only works in single select dropdown
   final bool shouldResetSelection;
 
+  final bool overrideShowHintTextWhenExpanded;
+
   DropdownFlutter({
     super.key,
     required this.items,
@@ -240,6 +242,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.enabled = true,
     this.disabledDecoration,
     this.shouldResetSelection = false,
+    this.overrideShowHintTextWhenExpanded = false,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -302,6 +305,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.disabledDecoration,
     this.closeDropDownOnClearFilterSearch = false,
     this.shouldResetSelection = false,
+    this.overrideShowHintTextWhenExpanded = false,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -366,6 +370,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.disabledDecoration,
     this.closeDropDownOnClearFilterSearch = false,
     this.shouldResetSelection = false,
+    this.overrideShowHintTextWhenExpanded = false,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -413,6 +418,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.onApplyButtonPressed,
     this.applyButtonBuilder,
     this.shouldResetSelection = false,
+    this.overrideShowHintTextWhenExpanded = false,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -480,6 +486,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.shouldResetSelection = false,
     this.onApplyButtonPressed,
     this.applyButtonBuilder,
+    this.overrideShowHintTextWhenExpanded = false,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -546,6 +553,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.disabledDecoration,
     this.closeDropDownOnClearFilterSearch = false,
     this.shouldResetSelection = false,
+    this.overrideShowHintTextWhenExpanded = false,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -732,6 +740,8 @@ class _DropdownFlutterState<T> extends State<DropdownFlutter<T>> {
                   selectAllItemBuilder: widget.selectAllItemBuilder,
                   applyButtonBuilder: widget.applyButtonBuilder,
                   onApplyButtonPressed: widget.onApplyButtonPressed,
+                  overrideShowHintTextWhenExpanded:
+                      widget.overrideShowHintTextWhenExpanded,
                 );
               },
               child: (showCallback) {

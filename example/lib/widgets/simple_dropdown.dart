@@ -23,7 +23,7 @@ class SimpleDropdown extends StatelessWidget {
       onChanged: (value) {
         log('SimpleDropdown onChanged value: $value');
       },
-      shouldResetSelection: true,
+      overrideShowHintTextWhenExpanded: true,
       decoration: CustomDropdownDecoration(
         closedBorder: Border(
           left: BorderSide(

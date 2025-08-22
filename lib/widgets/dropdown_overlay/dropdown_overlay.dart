@@ -46,6 +46,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final CustomDropdownDecoration? decoration;
   final _DropdownType dropdownType;
   final Offset? additionalOverlayOffset;
+  final bool overrideShowHintTextWhenExpanded;
 
   const _DropdownOverlay({
     Key? key,
@@ -88,6 +89,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.headerListBuilder,
     required this.noResultFoundBuilder,
     this.additionalOverlayOffset,
+    this.overrideShowHintTextWhenExpanded = false,
   });
 
   @override
@@ -349,7 +351,8 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
     final shouldShowApplyButton = (decoration != null &&
         decoration.showApplyButtonInMultipleSelect != null &&
         decoration.showApplyButtonInMultipleSelect! &&
-        widget.dropdownType == _DropdownType.multipleSelect && widget.items.isNotEmpty);
+        widget.dropdownType == _DropdownType.multipleSelect &&
+        widget.items.isNotEmpty);
 
     // items list
     final list = items.isNotEmpty
@@ -402,7 +405,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                     [
                       BoxShadow(
                         blurRadius: 24.0,
-                        color: Colors.black.withOpacity(.08),
+                        color: Colors.black.withAlpha(20),
                         offset: _defaultOverlayShadowOffset,
                       ),
                     ],
@@ -466,11 +469,18 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                           child: switch (widget.dropdownType) {
                                             _DropdownType.singleSelect =>
                                               selectedItem != null
-                                                  ? headerBuilder(context)
+                                                  ? !widget
+                                                          .overrideShowHintTextWhenExpanded
+                                                      ? headerBuilder(context)
+                                                      : hintBuilder(context)
                                                   : hintBuilder(context),
                                             _DropdownType.multipleSelect =>
                                               selectedItems.isNotEmpty
-                                                  ? headerListBuilder(context)
+                                                  ? !widget
+                                                          .overrideShowHintTextWhenExpanded
+                                                      ? headerListBuilder(
+                                                          context)
+                                                      : hintBuilder(context)
                                                   : hintBuilder(context),
                                           },
                                         ),
