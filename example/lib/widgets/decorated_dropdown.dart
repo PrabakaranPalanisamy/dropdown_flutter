@@ -191,9 +191,10 @@ class MultiSelectFilterDropdown extends StatelessWidget {
       // width: 200,
       child: SizedBox(
         width: 240,
-        height: 40,
         child: DropdownFlutter<JobType>.multiSelectSearch(
+          debounceSearchCharacters: null,
           items: biggerJobItems,
+          collapsedDropdownHeight: 60,
           hintText: 'Select job role',
           searchHintText: 'Search job role',
           // closedHeaderPadding: const EdgeInsets.all(20),

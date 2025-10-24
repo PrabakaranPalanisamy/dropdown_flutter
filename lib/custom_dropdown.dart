@@ -210,6 +210,10 @@ class DropdownFlutter<T> extends StatefulWidget {
 
   final bool overrideShowHintTextWhenExpanded;
 
+  final double? collapsedDropdownHeight;
+
+  final int? debounceSearchCharacters;
+
   DropdownFlutter({
     super.key,
     required this.items,
@@ -243,6 +247,8 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.disabledDecoration,
     this.shouldResetSelection = false,
     this.overrideShowHintTextWhenExpanded = false,
+    this.collapsedDropdownHeight,
+    this.debounceSearchCharacters,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -306,6 +312,8 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.closeDropDownOnClearFilterSearch = false,
     this.shouldResetSelection = false,
     this.overrideShowHintTextWhenExpanded = false,
+    this.collapsedDropdownHeight,
+    this.debounceSearchCharacters,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -371,6 +379,8 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.closeDropDownOnClearFilterSearch = false,
     this.shouldResetSelection = false,
     this.overrideShowHintTextWhenExpanded = false,
+    this.collapsedDropdownHeight,
+    this.debounceSearchCharacters,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -419,6 +429,8 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.applyButtonBuilder,
     this.shouldResetSelection = false,
     this.overrideShowHintTextWhenExpanded = false,
+    this.collapsedDropdownHeight,
+    this.debounceSearchCharacters,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -487,6 +499,8 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.onApplyButtonPressed,
     this.applyButtonBuilder,
     this.overrideShowHintTextWhenExpanded = false,
+    this.collapsedDropdownHeight,
+    this.debounceSearchCharacters,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -554,6 +568,8 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.closeDropDownOnClearFilterSearch = false,
     this.shouldResetSelection = false,
     this.overrideShowHintTextWhenExpanded = false,
+    this.collapsedDropdownHeight,
+    this.debounceSearchCharacters,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -742,53 +758,58 @@ class _DropdownFlutterState<T> extends State<DropdownFlutter<T>> {
                   onApplyButtonPressed: widget.onApplyButtonPressed,
                   overrideShowHintTextWhenExpanded:
                       widget.overrideShowHintTextWhenExpanded,
+                  debounceSearchCharacters: widget.debounceSearchCharacters,
                 );
               },
               child: (showCallback) {
                 return CompositedTransformTarget(
                   link: layerLink,
-                  child: _DropDownField<T>(
-                    onTap: showCallback,
-                    selectedItemNotifier: selectedItemNotifier,
-                    border: formFieldState.hasError
-                        ? (decoration?.closedErrorBorder ?? _defaultErrorBorder)
-                        : enabled
-                            ? decoration?.closedBorder
-                            : disabledDecoration?.border,
-                    borderRadius: formFieldState.hasError
-                        ? decoration?.closedErrorBorderRadius
-                        : enabled
-                            ? decoration?.closedBorderRadius
-                            : disabledDecoration?.borderRadius,
-                    shadow: enabled
-                        ? decoration?.closedShadow
-                        : disabledDecoration?.shadow,
-                    hintStyle: enabled
-                        ? decoration?.hintStyle
-                        : disabledDecoration?.hintStyle,
-                    headerStyle: enabled
-                        ? decoration?.headerStyle
-                        : disabledDecoration?.headerStyle,
-                    hintText: safeHintText,
-                    hintBuilder: widget.hintBuilder,
-                    headerBuilder: widget.headerBuilder,
-                    headerListBuilder: widget.headerListBuilder,
-                    prefixIcon: enabled
-                        ? decoration?.prefixIcon
-                        : disabledDecoration?.prefixIcon,
-                    suffixIcon: enabled
-                        ? decoration?.closedSuffixIcon
-                        : disabledDecoration?.suffixIcon,
-                    fillColor: enabled
-                        ? decoration?.closedFillColor
-                        : disabledDecoration?.fillColor,
-                    maxLines: widget.maxlines,
-                    headerPadding: widget.closedHeaderPadding,
-                    dropdownType: widget._dropdownType,
-                    selectedItemsNotifier: selectedItemsNotifier,
-                    enabled: widget.enabled,
-                    outLineBorderDecoration:
-                        decoration?.outLineBorderDecoration,
+                  child: SizedBox(
+                    height: widget.collapsedDropdownHeight,
+                    child: _DropDownField<T>(
+                      onTap: showCallback,
+                      selectedItemNotifier: selectedItemNotifier,
+                      border: formFieldState.hasError
+                          ? (decoration?.closedErrorBorder ??
+                              _defaultErrorBorder)
+                          : enabled
+                              ? decoration?.closedBorder
+                              : disabledDecoration?.border,
+                      borderRadius: formFieldState.hasError
+                          ? decoration?.closedErrorBorderRadius
+                          : enabled
+                              ? decoration?.closedBorderRadius
+                              : disabledDecoration?.borderRadius,
+                      shadow: enabled
+                          ? decoration?.closedShadow
+                          : disabledDecoration?.shadow,
+                      hintStyle: enabled
+                          ? decoration?.hintStyle
+                          : disabledDecoration?.hintStyle,
+                      headerStyle: enabled
+                          ? decoration?.headerStyle
+                          : disabledDecoration?.headerStyle,
+                      hintText: safeHintText,
+                      hintBuilder: widget.hintBuilder,
+                      headerBuilder: widget.headerBuilder,
+                      headerListBuilder: widget.headerListBuilder,
+                      prefixIcon: enabled
+                          ? decoration?.prefixIcon
+                          : disabledDecoration?.prefixIcon,
+                      suffixIcon: enabled
+                          ? decoration?.closedSuffixIcon
+                          : disabledDecoration?.suffixIcon,
+                      fillColor: enabled
+                          ? decoration?.closedFillColor
+                          : disabledDecoration?.fillColor,
+                      maxLines: widget.maxlines,
+                      headerPadding: widget.closedHeaderPadding,
+                      dropdownType: widget._dropdownType,
+                      selectedItemsNotifier: selectedItemsNotifier,
+                      enabled: widget.enabled,
+                      outLineBorderDecoration:
+                          decoration?.outLineBorderDecoration,
+                    ),
                   ),
                 );
               },

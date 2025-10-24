@@ -47,6 +47,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final _DropdownType dropdownType;
   final Offset? additionalOverlayOffset;
   final bool overrideShowHintTextWhenExpanded;
+  final int? debounceSearchCharacters;
 
   const _DropdownOverlay({
     Key? key,
@@ -90,6 +91,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
     required this.noResultFoundBuilder,
     this.additionalOverlayOffset,
     this.overrideShowHintTextWhenExpanded = false,
+    required this.debounceSearchCharacters,
   });
 
   @override
@@ -502,6 +504,8 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                     },
                                     decoration:
                                         decoration?.searchFieldDecoration,
+                                    debounceSearchCharacters:
+                                        widget.debounceSearchCharacters,
                                   )
                                 else
                                   GestureDetector(
@@ -531,6 +535,8 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                               },
                                               decoration: decoration
                                                   ?.searchFieldDecoration,
+                                              debounceSearchCharacters: widget
+                                                  .debounceSearchCharacters,
                                             ),
                                           ),
                                           decoration?.expandedSuffixIcon ??
@@ -562,6 +568,8 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                         mayFoundSearchRequestResult = val,
                                     decoration:
                                         decoration?.searchFieldDecoration,
+                                    debounceSearchCharacters:
+                                        widget.debounceSearchCharacters,
                                   )
                                 else
                                   GestureDetector(
@@ -604,6 +612,8 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
                                                       val,
                                               decoration: decoration
                                                   ?.searchFieldDecoration,
+                                              debounceSearchCharacters: widget
+                                                  .debounceSearchCharacters,
                                             ),
                                           ),
                                           decoration?.expandedSuffixIcon ??
