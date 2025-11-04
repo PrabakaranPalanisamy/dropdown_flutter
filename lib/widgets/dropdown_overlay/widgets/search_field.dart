@@ -10,6 +10,7 @@ class _SearchField<T> extends StatefulWidget {
   final ValueChanged<bool>? onFutureRequestLoading, mayFoundResult;
   final SearchFieldDecoration? decoration;
   final int? debounceSearchCharacters;
+  final bool resetListWhenSearchDebounced;
 
   const _SearchField.forListData({
     super.key,
@@ -18,6 +19,7 @@ class _SearchField<T> extends StatefulWidget {
     required this.searchHintText,
     required this.decoration,
     required this.debounceSearchCharacters,
+    required this.resetListWhenSearchDebounced,
   })  : searchType = _SearchType.onListData,
         futureRequest = null,
         futureRequestDelay = null,
@@ -34,7 +36,9 @@ class _SearchField<T> extends StatefulWidget {
       required this.onFutureRequestLoading,
       required this.mayFoundResult,
       required this.decoration,
-      required this.debounceSearchCharacters})
+      required this.debounceSearchCharacters,
+      required this.resetListWhenSearchDebounced,
+      })
       : searchType = _SearchType.onRequestData;
 
   @override
@@ -122,8 +126,13 @@ class _SearchFieldState<T> extends State<_SearchField<T>> {
 
               if (widget.debounceSearchCharacters != null &&
                   val.isNotEmpty &&
-                  val.length < widget.debounceSearchCharacters!) {
-                return;
+                  val.length < widget.debounceSearchCharacters!){
+                if(widget.resetListWhenSearchDebounced){
+                  widget.onSearchedItems(widget.items);
+                  return;
+                }else{
+                  return;
+                }
               }
 
               if (widget.searchType != null &&

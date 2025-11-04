@@ -15,3 +15,6 @@
 
 # 1.0.5
 - Added debounceSearchCharacters param to customize search delay
+
+# 1.0.6
+- Added resetListWhenSearchDebounced param to reset list when search debounced

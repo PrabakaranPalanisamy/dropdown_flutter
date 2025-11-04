@@ -214,6 +214,8 @@ class DropdownFlutter<T> extends StatefulWidget {
 
   final int? debounceSearchCharacters;
 
+  final bool resetListWhenSearchDebounced;
+
   DropdownFlutter({
     super.key,
     required this.items,
@@ -249,6 +251,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.overrideShowHintTextWhenExpanded = false,
     this.collapsedDropdownHeight,
     this.debounceSearchCharacters,
+    bool? resetListWhenSearchDebounced,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -276,7 +279,8 @@ class DropdownFlutter<T> extends StatefulWidget {
         headerListBuilder = null,
         searchRequestLoadingIndicator = null,
         closeDropDownOnClearFilterSearch = false,
-        multiSelectController = null;
+        multiSelectController = null,
+        resetListWhenSearchDebounced = true;
 
   DropdownFlutter.search({
     super.key,
@@ -314,6 +318,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.overrideShowHintTextWhenExpanded = false,
     this.collapsedDropdownHeight,
     this.debounceSearchCharacters,
+    bool? resetListWhenSearchDebounced,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -340,7 +345,8 @@ class DropdownFlutter<T> extends StatefulWidget {
         multiSelectController = null,
         onApplyButtonPressed = null,
         applyButtonBuilder = null,
-        selectAllItemBuilder = null;
+        selectAllItemBuilder = null,
+        resetListWhenSearchDebounced = true;
 
   const DropdownFlutter.searchRequest({
     super.key,
@@ -381,6 +387,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.overrideShowHintTextWhenExpanded = false,
     this.collapsedDropdownHeight,
     this.debounceSearchCharacters,
+    bool? resetListWhenSearchDebounced,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -394,7 +401,8 @@ class DropdownFlutter<T> extends StatefulWidget {
         selectAllItemBuilder = null,
         onApplyButtonPressed = null,
         applyButtonBuilder = null,
-        multiSelectController = null;
+        multiSelectController = null,
+        resetListWhenSearchDebounced = true;
 
   DropdownFlutter.multiSelect({
     super.key,
@@ -431,6 +439,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.overrideShowHintTextWhenExpanded = false,
     this.collapsedDropdownHeight,
     this.debounceSearchCharacters,
+    bool? resetListWhenSearchDebounced,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -460,7 +469,8 @@ class DropdownFlutter<T> extends StatefulWidget {
         noResultFoundBuilder = null,
         searchHintText = null,
         searchRequestLoadingIndicator = null,
-        closeDropDownOnClearFilterSearch = false;
+        closeDropDownOnClearFilterSearch = false,
+        resetListWhenSearchDebounced = true;
 
   DropdownFlutter.multiSelectSearch({
     super.key,
@@ -501,6 +511,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.overrideShowHintTextWhenExpanded = false,
     this.collapsedDropdownHeight,
     this.debounceSearchCharacters,
+    bool? resetListWhenSearchDebounced,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -526,7 +537,8 @@ class DropdownFlutter<T> extends StatefulWidget {
         headerBuilder = null,
         futureRequest = null,
         futureRequestDelay = null,
-        searchRequestLoadingIndicator = null;
+        searchRequestLoadingIndicator = null,
+        resetListWhenSearchDebounced = true;
 
   const DropdownFlutter.multiSelectSearchRequest({
     super.key,
@@ -570,6 +582,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.overrideShowHintTextWhenExpanded = false,
     this.collapsedDropdownHeight,
     this.debounceSearchCharacters,
+    bool? resetListWhenSearchDebounced,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -580,7 +593,8 @@ class DropdownFlutter<T> extends StatefulWidget {
         onChanged = null,
         headerBuilder = null,
         excludeSelected = false,
-        validator = null;
+        validator = null,
+        resetListWhenSearchDebounced = true;
 
   @override
   State<DropdownFlutter<T>> createState() => _DropdownFlutterState<T>();
@@ -759,6 +773,8 @@ class _DropdownFlutterState<T> extends State<DropdownFlutter<T>> {
                   overrideShowHintTextWhenExpanded:
                       widget.overrideShowHintTextWhenExpanded,
                   debounceSearchCharacters: widget.debounceSearchCharacters,
+                  resetListWhenSearchDebounced:
+                      widget.resetListWhenSearchDebounced,
                 );
               },
               child: (showCallback) {
