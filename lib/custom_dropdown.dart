@@ -216,6 +216,8 @@ class DropdownFlutter<T> extends StatefulWidget {
 
   final bool resetListWhenSearchDebounced;
 
+  final EdgeInsets? scrollbarPadding;
+
   DropdownFlutter({
     super.key,
     required this.items,
@@ -252,6 +254,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.collapsedDropdownHeight,
     this.debounceSearchCharacters,
     bool? resetListWhenSearchDebounced,
+    this.scrollbarPadding,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -319,6 +322,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.collapsedDropdownHeight,
     this.debounceSearchCharacters,
     bool? resetListWhenSearchDebounced,
+    this.scrollbarPadding,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -388,6 +392,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.collapsedDropdownHeight,
     this.debounceSearchCharacters,
     bool? resetListWhenSearchDebounced,
+    this.scrollbarPadding,
   })  : assert(
           initialItem == null || controller == null,
           'Only one of initialItem or controller can be specified at a time',
@@ -440,6 +445,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.collapsedDropdownHeight,
     this.debounceSearchCharacters,
     bool? resetListWhenSearchDebounced,
+    this.scrollbarPadding,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -512,6 +518,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.collapsedDropdownHeight,
     this.debounceSearchCharacters,
     bool? resetListWhenSearchDebounced,
+    this.scrollbarPadding,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -583,6 +590,7 @@ class DropdownFlutter<T> extends StatefulWidget {
     this.collapsedDropdownHeight,
     this.debounceSearchCharacters,
     bool? resetListWhenSearchDebounced,
+    this.scrollbarPadding,
   })  : assert(
           initialItems == null || multiSelectController == null,
           'Only one of initialItems or controller can be specified at a time',
@@ -775,6 +783,7 @@ class _DropdownFlutterState<T> extends State<DropdownFlutter<T>> {
                   debounceSearchCharacters: widget.debounceSearchCharacters,
                   resetListWhenSearchDebounced:
                       widget.resetListWhenSearchDebounced,
+                  scrollbarPadding: widget.scrollbarPadding,
                 );
               },
               child: (showCallback) {

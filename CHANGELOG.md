@@ -18,3 +18,8 @@
 
 # 1.0.6
 - Added resetListWhenSearchDebounced param to reset list when search debounced
+
+# 1.0.7
+- Added scrollbarPadding param to customize scrollbar padding
+
+

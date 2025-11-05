@@ -49,6 +49,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
   final bool overrideShowHintTextWhenExpanded;
   final int? debounceSearchCharacters;
   final bool resetListWhenSearchDebounced;
+  final EdgeInsets? scrollbarPadding;
 
   const _DropdownOverlay({
     Key? key,
@@ -94,6 +95,7 @@ class _DropdownOverlay<T> extends StatefulWidget {
     this.overrideShowHintTextWhenExpanded = false,
     required this.debounceSearchCharacters,
     required this.resetListWhenSearchDebounced,
+    required this.scrollbarPadding,
   });
 
   @override
@@ -379,6 +381,7 @@ class _DropdownOverlayState<T> extends State<_DropdownOverlay<T>> {
             selectAllListItemBuilder:
                 widget.selectAllItemBuilder ?? defaultSelectAllListItemBuilder,
             isSelectedAll: isSelectedAll(),
+            scrollbarPadding: widget.scrollbarPadding,
           )
         : (mayFoundSearchRequestResult != null &&
                     !mayFoundSearchRequestResult!) ||
