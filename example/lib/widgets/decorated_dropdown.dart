@@ -172,6 +172,8 @@ class MultiSelectDecoratedDropdown extends StatelessWidget {
               child: Icon(Icons.close, color: Colors.grey[400]),
             );
           },
+          outLineOuterBorderDecoration: BoxDecoration(
+            border: Border(bottom: BorderSide(color: Colors.black)),)
         ),
         listItemDecoration: ListItemDecoration(
           selectedColor: Colors.grey[900],
@@ -305,6 +307,8 @@ class MultiSelectFilterDropdown extends StatelessWidget {
                   child: SizedBox.shrink(),
                 );
               },
+                outLineOuterBorderDecoration: BoxDecoration(
+                  border: Border(bottom: BorderSide(color: Colors.grey.shade100)),)
             ),
             listItemDecoration: ListItemDecoration(
               // selectedColor: Colors.grey[900],

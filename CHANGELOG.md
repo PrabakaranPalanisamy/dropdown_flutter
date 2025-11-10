@@ -22,4 +22,5 @@
 # 1.0.7
 - Added scrollbarPadding param to customize scrollbar padding
 
-
+# 1.0.8
+- Fixed scrollbar not draggable issue in dropdown list

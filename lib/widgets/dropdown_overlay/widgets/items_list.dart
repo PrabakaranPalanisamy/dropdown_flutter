@@ -45,6 +45,7 @@ class _ItemsList<T> extends StatelessWidget {
       child: Scrollbar(
         controller: scrollController,
         child: ListView(
+          controller: scrollController,
           shrinkWrap: true,
           children: [
             if (shouldShowSelectAll &&
@@ -53,7 +54,6 @@ class _ItemsList<T> extends StatelessWidget {
                   context, isSelectedAll, (bool) => onSelectAll(bool))
             ],
             ListView.builder(
-              controller: scrollController,
               shrinkWrap: true,
               padding: itemsListPadding,
               itemCount: items.length,
