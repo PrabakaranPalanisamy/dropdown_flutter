@@ -24,3 +24,6 @@
 
 # 1.0.8
 - Fixed scrollbar not draggable issue in dropdown list
+
+# 1.0.9
+- Added isDense to Input decorator in custom_dropdown.dart to fix the extra vertical padding issue

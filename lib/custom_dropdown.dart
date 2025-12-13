@@ -712,6 +712,7 @@ class _DropdownFlutterState<T> extends State<DropdownFlutter<T>> {
               errorText: formFieldState.errorText,
               border: InputBorder.none,
               contentPadding: EdgeInsets.zero,
+              isDense: true,
             ),
             child: _OverlayBuilder(
               overlayPortalController: widget.overlayController,

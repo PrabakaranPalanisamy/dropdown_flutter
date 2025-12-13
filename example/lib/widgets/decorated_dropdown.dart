@@ -197,16 +197,16 @@ class MultiSelectFilterDropdown extends StatelessWidget {
           resetListWhenSearchDebounced:true,
           debounceSearchCharacters: 3,
           items: biggerJobItems,
-          collapsedDropdownHeight: 60,
+          collapsedDropdownHeight: 24,
           hintText: 'Select job role',
           searchHintText: 'Search job role',
           // closedHeaderPadding: const EdgeInsets.all(20),
           onListChanged: (value) {
             log('MultiSelectDecoratedDropdown onChanged value: $value');
           },
-          maxlines: 2,
+          maxlines: 1,
           itemsListPadding: EdgeInsets.zero,
-          overlayHeight: 300,
+          overlayHeight: 300,closedHeaderPadding: EdgeInsets.only(left: 10,right: 10),
           hideSelectedFieldWhenExpanded: true,
           listItemBuilder: (context, item, isSelected, onItemSelect) {
             return SizedBox(
@@ -238,7 +238,7 @@ class MultiSelectFilterDropdown extends StatelessWidget {
                   ? WidgetStateProperty.all<bool>(true)
                   : WidgetStateProperty.all<bool>(false),
             ),
-            additionalOverlayOffset: Offset(0, 42),
+            additionalOverlayOffset: Offset(0, 24),
             closedFillColor: Colors.white,
             expandedFillColor: Colors.white,
             closedBorderRadius: BorderRadius.circular(4),
