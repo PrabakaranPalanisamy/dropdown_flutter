@@ -1,6 +1,6 @@
-# Dropdown Flutter
+# Dropdown Flutter Fork
 
-**DropdownFlutter** designed to enhance your Flutter application, offers highly customizable dropdowns with advanced features including list data search, network search, and multiple-selection.
+**DropdownFlutter** designed to enhance your Flutter application, offers highly customizable dropdowns with advanced features including list data search, network search, and multiple-selection. I have forked the project to make it work with our project
 
 ## Features
 
